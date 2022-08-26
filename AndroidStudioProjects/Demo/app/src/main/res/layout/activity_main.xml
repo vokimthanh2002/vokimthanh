@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+<LinearLayout
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DANG NHAP"
+        android:textSize="25dp"
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/edittextuser"
+        android:hint="Nhap ten nguoi dung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:id="@+id/edittextpassword"
+        android:hint="Nhap mat khau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        />
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_marginRight="30dp"
+            android:id="@+id/buttondangki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DANG KI"
+            />
+        <Button
+            android:id="@+id/buttondangnhap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DANG NHAP"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="100dp"
+        android:id="@+id/buttonthoat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thoat"
+        />
+
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
