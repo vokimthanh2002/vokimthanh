@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
     <LinearLayout
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:padding="60dp"
         android:orientation="vertical">
@@ -21,32 +22,63 @@
             app:srcCompat="@drawable/anh1"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="155dp" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="User Name"
-            android:background="@drawable/custom_edittext_1"
-            android:padding="7dp">
-        </EditText>
-        <EditText
-            android:id="@+id/editTextTextPassword2"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="************"
-            android:background="@drawable/custom_edittext_1"
-            android:padding="7dp">
-        </EditText>
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="80dp"
+          android:background="@drawable/custom_edittext_1"
+          android:orientation="vertical">
+          <EditText
+              android:layout_width="300dp"
+              android:layout_height="wrap_content"
+              android:hint="Võ Kim Thành"
+              android:background="@null"
+              android:padding="9dp">
+          </EditText>
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="3dp"
+              android:background="#00CCFF"/>
+          <EditText
+              android:id="@+id/editTextTextPassword2"
+              android:inputType="textPassword"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="2050531200331"
+              android:background="@null"
+              android:padding="9dp">
+          </EditText>
+      </LinearLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="60dp"
             android:text="LOGIN ME"
-            android:background="#0288D1">
+            android:textSize="25dp"
+            android:background="@drawable/boder">
         </Button>
+      <LinearLayout
+          android:gravity="center"
+          android:layout_marginTop="20dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
 
+          <ImageView
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:background="@drawable/ic_baseline_vpn_key_24"
+              android:rotation="-319" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textColor="#00CCFF"
+              android:background="#FFFFFF"
+              android:textSize="20dp"
+              android:text="Lost password ?"/>
 
+      </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

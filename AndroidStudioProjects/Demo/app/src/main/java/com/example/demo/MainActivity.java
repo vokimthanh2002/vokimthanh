@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                         onBackPressed();
                     }
                 });
-                    builder.setNegativeButton("Khong", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton("Khong", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }
@@ -106,9 +106,5 @@ public class MainActivity extends AppCompatActivity {
         btndangnhap= (Button) findViewById(R.id.buttondangnhap);
         btndangki= (Button) findViewById(R.id.buttondangki);
         btnthoat= (Button) findViewById(R.id.buttonthoat);
-
-
-
-
     }
 }
