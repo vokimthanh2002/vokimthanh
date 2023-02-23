@@ -17,10 +17,11 @@
 <div class="row flex-column align-items-end mr-5">
     <nav class="navbar navbar-light bg-light justify-content-end">
         <button class="btn btn-success" type="submit" onclick="window.location.href='/benhnhan?action=create'"> Them moi benh nhan </button> &emsp;
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search"  placeholder="Ten benh nhan" aria-label="Search" id="search">
+        <form  class="form-inline" method="get" >
+            <input class="form-control mr-sm-2" type="search"  placeholder="Ten benh nhan" aria-label="Search" name="inputSearch">
+            <input type="hidden" name="action" value="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
         </form>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
     </nav>
 </div>
 <table class="table table-sm table-dark" class="table" id="tableStudent">
@@ -46,12 +47,34 @@
            <th scope="row">${benhNhan.getLiDo()}</th>
            <th scope="row">
                <button type="submit" class="btn btn-info" onclick="window.location.href='/benhnhan?action=edit&id=${benhNhan.getMaBenhNhan()}&maBA=${benhNhan.getMaBenhAn()}'"> Chỉnh Sửa </button>
-               <button type="submit" class="btn btn-danger" onclick="window.location.href='/benhnhan?action=delete&id=${benhNhan.getMaBenhNhan()}&maBA=${benhNhan.getMaBenhAn()}'"> Xóa </button>
+               <button type="submit" class="btn btn-danger" data-toggle="modal"
+                       data-target="#exampleModal" onclick="onDelete(${benhNhan.getMaBenhNhan()})"> Xóa </button>
            </th>
        </tr>
    </c:forEach>
     </tbody>
 </table>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa khách hàng này!</h5>
+            </div>
+            <form method="post" action="/benhnhan?action=delete">
+                <input type="hidden" name="idDelete" id="id">
+                <div class="modal-body">
+                    <p>Bạn có thật sự muốn xóa</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -72,7 +95,11 @@
             'pageLength' : 10
         })
     })
+    function onDelete(id) {
+        document.getElementById("id").value = id;
+    }
 
 </script>
+
 </body>
 </html>

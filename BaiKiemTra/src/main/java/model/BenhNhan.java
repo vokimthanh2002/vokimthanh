@@ -69,4 +69,16 @@ public class BenhNhan {
     public void setMaBenhAn(String maBenhAn) {
         this.maBenhAn = maBenhAn;
     }
+
+    @Override
+    public String toString() {
+        return "BenhNhan{" +
+                "maBenhNhan='" + maBenhNhan + '\'' +
+                ", tenBenhNhan='" + tenBenhNhan + '\'' +
+                ", ngayNhapVien='" + ngayNhapVien + '\'' +
+                ", ngayRaVien='" + ngayRaVien + '\'' +
+                ", liDo='" + liDo + '\'' +
+                ", maBenhAn='" + maBenhAn + '\'' +
+                '}';
+    }
 }

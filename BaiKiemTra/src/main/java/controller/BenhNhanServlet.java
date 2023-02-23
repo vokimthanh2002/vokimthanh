@@ -17,52 +17,62 @@ import java.util.List;
 @WebServlet(name = "BenhNhanServlet", value = "/benhnhan")
 public class BenhNhanServlet extends HttpServlet {
     IBenhNhanService benhNhanService = new BenhNhanService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action==null){
-            action="";
+        if (action == null) {
+            action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
-                showCreateForm(request,response);
+                showCreateForm(request, response);
                 break;
             case "edit":
-                showeditForm(request,response);
+                showeditForm(request, response);
                 break;
             case "delete":
-                doDeleteForm(request,response);
+                doDeleteForm(request, response);
                 break;
             case "view":
-                showViewForm(request,response);
+                showViewForm(request, response);
                 break;
             case "search":
-                doSearch(request,response);
+                doSearch(request, response);
                 break;
             default:
-                listBenhNhan(request,response);
+                listBenhNhan(request, response);
                 break;
         }
     }
 
     private void doSearch(HttpServletRequest request, HttpServletResponse response) {
         String inputSearch = request.getParameter("inputSearch");
+        System.out.println(inputSearch);
         List<BenhNhan> listSearch = new ArrayList<>();
-        BenhNhanhRepository.findByName(inputSearch);
-        for(BenhNhan benhNhan: benhNhanService.getAll()){
-            if(benhNhan.getTenBenhNhan().toLowerCase().contains(inputSearch.toLowerCase())){
-                listSearch.add(benhNhan);
+
+        for (BenhNhan benhNhan : benhNhanService.getAll()) {
+
+            try {
+                if (benhNhan.getTenBenhNhan().toLowerCase().contains(inputSearch.toLowerCase())) {
+                    listSearch.add(benhNhan);
+                }
+            } catch (Exception e) {
+                    e.printStackTrace();
             }
+
+
+            System.out.println(benhNhan);
         }
         RequestDispatcher dispatcher;
-        if(listSearch==null){
+        if (listSearch == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else{
-            request.setAttribute("listSearch", listSearch);
+        } else {
+            request.setAttribute("listBenhNhan", listSearch);
             dispatcher = request.getRequestDispatcher("benhnhan/list.jsp");
         }
-        try{
-            dispatcher.forward(request,response);
+        try {
+            dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -72,18 +82,18 @@ public class BenhNhanServlet extends HttpServlet {
     }
 
     private void showViewForm(HttpServletRequest request, HttpServletResponse response) {
-        String maBN =request.getParameter("id");
+        String maBN = request.getParameter("id");
         String maBA = request.getParameter("maBA");
-        BenhNhan benhNhan = benhNhanService.findById(maBN,maBA);
+        BenhNhan benhNhan = benhNhanService.findById(maBN, maBA);
         RequestDispatcher dispatcher;
-        if(benhNhan==null){
+        if (benhNhan == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else{
+        } else {
             request.setAttribute("benhnhan", benhNhan);
             dispatcher = request.getRequestDispatcher("benhnhan/view.jsp");
         }
-        try{
-            dispatcher.forward(request,response);
+        try {
+            dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -92,9 +102,9 @@ public class BenhNhanServlet extends HttpServlet {
     }
 
     private void doDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-        String maBN =request.getParameter("id");
+        String maBN = request.getParameter("idDelete");
         String maBA = request.getParameter("maBA");
-        benhNhanService.deleteById(maBN,maBA);
+        benhNhanService.deleteById(maBN, maBA);
         try {
             response.sendRedirect("/benhnhan");
         } catch (IOException e) {
@@ -104,20 +114,20 @@ public class BenhNhanServlet extends HttpServlet {
     }
 
     private void showeditForm(HttpServletRequest request, HttpServletResponse response) {
-        String maBN =request.getParameter("id");
+        String maBN = request.getParameter("id");
         String maBA = request.getParameter("maBA");
-        BenhNhan benhNhan = benhNhanService.findById(maBN,maBA);
+        BenhNhan benhNhan = benhNhanService.findById(maBN, maBA);
         RequestDispatcher dispatcher;
         List<BenhAn> listBA = benhNhanService.getAllBenhAn();
-        if(benhNhan==null){
+        if (benhNhan == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else{
+        } else {
             request.setAttribute("benhnhan", benhNhan);
-            request.setAttribute("listBA",listBA);
+            request.setAttribute("listBA", listBA);
             dispatcher = request.getRequestDispatcher("benhnhan/edit.jsp");
         }
-        try{
-            dispatcher.forward(request,response);
+        try {
+            dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -127,26 +137,26 @@ public class BenhNhanServlet extends HttpServlet {
 
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
         List<BenhAn> listBA = benhNhanService.getAllBenhAn();
-        request.setAttribute("listBA",listBA);
-        RequestDispatcher dispatcher =  request.getRequestDispatcher("benhnhan/create.jsp");
-        try{
-            dispatcher.forward(request,response);
-        }catch (ServletException e){
+        request.setAttribute("listBA", listBA);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("benhnhan/create.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
             e.printStackTrace();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void listBenhNhan(HttpServletRequest request, HttpServletResponse response) {
         List<BenhNhan> list = benhNhanService.getAll();
-        request.setAttribute("listBenhNhan",list);
+        request.setAttribute("listBenhNhan", list);
         RequestDispatcher dispatcher = request.getRequestDispatcher("benhnhan/list.jsp");
-        try{
-            dispatcher.forward(request,response);
-        }catch (ServletException e){
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
             e.printStackTrace();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -154,15 +164,15 @@ public class BenhNhanServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action==null){
-            action="";
+        if (action == null) {
+            action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
-                    createBenhNhan(request,response);
+                createBenhNhan(request, response);
                 break;
             case "edit":
-                    editBenhNhan(request, response);
+                editBenhNhan(request, response);
                 break;
             default:
                 break;
@@ -177,12 +187,12 @@ public class BenhNhanServlet extends HttpServlet {
         String ngayRV = request.getParameter("ngayRV");
         String lyDo = request.getParameter("lyDo");
 
-        BenhNhan benhNhan = new BenhNhan(maBN,tenBN,ngayNV,ngayRV,lyDo,maBA);
+        BenhNhan benhNhan = new BenhNhan(maBN, tenBN, ngayNV, ngayRV, lyDo, maBA);
         benhNhanService.update(benhNhan);
         RequestDispatcher dispatcher = request.getRequestDispatcher("benhnhan/edit.jsp");
         request.setAttribute("message", "Tao moi benh nhan thanh cong");
         try {
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -199,12 +209,12 @@ public class BenhNhanServlet extends HttpServlet {
         String ngayRV = request.getParameter("ngayRV");
         String lyDo = request.getParameter("lyDo");
 
-        BenhNhan benhNhan = new BenhNhan(maBN,tenBN,ngayNV,ngayRV,lyDo,maBA);
+        BenhNhan benhNhan = new BenhNhan(maBN, tenBN, ngayNV, ngayRV, lyDo, maBA);
         benhNhanService.insert(benhNhan);
         RequestDispatcher dispatcher = request.getRequestDispatcher("benhnhan/create.jsp");
         request.setAttribute("message", "Tao moi benh nhan thanh cong");
         try {
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
